@@ -8,7 +8,7 @@ public class OpeningDoors : DefaultInteraction
     public float openAngle = 90.0f;
     public float openSpeed = 2.0f;
 
-    public override void Interact(Transform transform)
+    public override void Interact(Transform transform, bool callEvent = true)
     {
         base.Interact(transform);
         if (isOpen)
