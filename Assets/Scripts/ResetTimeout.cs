@@ -63,6 +63,18 @@ public class ResetTimeout : MonoBehaviour
         Debug.Log("Timer interrupted.");
     }
 
+    public void ContinueTimer()
+    {
+        isTimerRunning = true;
+        Debug.Log("Timer starts again.");
+    }
+
+    public void RestartTimer()
+    {
+        currentTime = countdownTime;
+        Debug.Log("Timer restarted.");
+    }
+
     public void AddTime(float bonusTime = 10f)
     {
         currentTime += bonusTime;
