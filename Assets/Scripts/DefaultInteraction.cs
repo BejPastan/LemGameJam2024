@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class DefaultInteraction : MonoBehaviour
@@ -26,15 +27,14 @@ public class DefaultInteraction : MonoBehaviour
         if (!isInteractable)
         {
             Debug.Log("Cannot interact with " + name);
-            return;
+            throw new System.Exception("Cannot interact with " + name);
         }
         foreach (InteractionCondition condition in conditions)
         {
             Debug.Log("Checking condition");
             if (!condition.IsMet(agent))
             {
-                Debug.Log("Cannot interact with " + name);
-                return;
+                throw new System.Exception("Condition not met");
             }
         }
         Debug.Log("Interacting with " + name);
@@ -73,7 +73,7 @@ public class InteractionCondition
     {
         try
         {
-            InteractionInput pickedItem = agent.GetComponentInChildren<InteractionInput>();
+            InteractionInput pickedItem = agent.GetComponent<InteractionInput>();
             return item.Contains(pickedItem.pickedItem.transform);
         }
         catch
@@ -86,5 +86,5 @@ public class InteractionCondition
 
 public enum InteractionType
 {
-    HaveItem,
+    HaveItem
 }
