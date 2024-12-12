@@ -13,8 +13,8 @@ public class PressurePlate : DefaultInteraction
     private MeshRenderer plateButtonRenderer;
 
     [Header("Button States")]
-    private bool is_triggereed = false;
     public bool is_one_shot = false;
+    public bool is_triggereed{get; private set;}
 
     [Header("Color Settings")]
     public Color triggeredColor = Color.red;  // Color to change to when triggered
