@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PressurePlate : DefaultInteraction
@@ -39,7 +40,7 @@ public class PressurePlate : DefaultInteraction
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if ((other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("Interactable")) && is_triggered == false)
         {
             is_triggered = true;
             plateButtonTransform.Translate(new Vector3(0.0f, -0.08f, 0.0f));
@@ -50,7 +51,7 @@ public class PressurePlate : DefaultInteraction
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && is_one_shot == false)
+        if ((other.CompareTag("Player") && is_one_shot == false) && is_triggered == true)
         {
             is_triggered = false;
             plateButtonTransform.Translate(new Vector3(0.0f, 0.08f, 0.0f));
