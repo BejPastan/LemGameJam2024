@@ -38,7 +38,6 @@ public class InteractionInput : MonoBehaviour
 
     public void Interact()
     {
-        Debug.Log(Camera.main);
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red, 2f);
