@@ -6,6 +6,7 @@ public class DefaultInteraction : MonoBehaviour
 {
     public bool isInteractable = true;
     [SerializeField]
+    [Tooltip("These interaction can trigger this object interaction")]
     DefaultInteraction[] interactionTriggers;
 
 
@@ -13,11 +14,11 @@ public class DefaultInteraction : MonoBehaviour
     {
         foreach (DefaultInteraction defaultInteraction in interactionTriggers)
         {
-            defaultInteraction.Interaction() += Interaction();
+            defaultInteraction.OnInteraction += () => Interact(defaultInteraction.transform);
         }
     }
 
-    public virtual void Interact(Transform agent)
+    public virtual void Interact(Transform agent, bool callEvent = true)
     {
         if (!isInteractable)
         {
@@ -25,13 +26,13 @@ public class DefaultInteraction : MonoBehaviour
             return;
         }
         Debug.Log("Interacting with " + name);
+        if(callEvent)
+        {
+            OnInteraction?.Invoke();
+        }
     }
 
-    //This is only for Triggering Interactions from list
-    public virtual void Interaction()
-    {
-        Interact(transform);
-    }
-
-    
+    //event to subscribe
+    public delegate void InteractionEvent();
+    public event InteractionEvent OnInteraction;
 }

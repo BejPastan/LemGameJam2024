@@ -10,7 +10,7 @@ public class PickUpInteraction : DefaultInteraction
 
     Transform parent;
 
-    public override void Interact(Transform agent)
+    public override void Interact(Transform agent, bool callEvent = true)
     {
         base.Interact(agent);
         if (parent == null)
@@ -32,9 +32,7 @@ public class PickUpInteraction : DefaultInteraction
 
     public void PickUp(Transform newParent)
     {
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        Destroy(rb);
         transform.SetParent(newParent);
         transform.position = newParent.position;
         transform.SetParent(newParent);
@@ -42,6 +40,7 @@ public class PickUpInteraction : DefaultInteraction
 
     public void Drop(Vector3 direction, float force)
     {
+        rb = gameObject.AddComponent<Rigidbody>();
         rb.useGravity = true;
         rb.AddForce(direction * force, ForceMode.Impulse);
         transform.SetParent(null);
