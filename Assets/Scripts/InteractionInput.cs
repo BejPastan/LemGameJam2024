@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class InteractionInput : MonoBehaviour
 {
-    PickUpInteraction pickedItem;
+    public PickUpInteraction pickedItem { get; private set; }
 
     public KeyCode interactKey = KeyCode.E;
     public KeyCode dropKey = KeyCode.Q;
@@ -61,6 +61,10 @@ public class InteractionInput : MonoBehaviour
 
     public void Drop()
     {
+        if(pickedItem == null)
+        {
+            return;
+        }
         pickedItem.Drop();
         pickedItem = null;
     }

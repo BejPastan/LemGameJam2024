@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DefaultInteraction : MonoBehaviour
@@ -9,7 +10,9 @@ public class DefaultInteraction : MonoBehaviour
     [Tooltip("These interaction can trigger this object interaction")]
     DefaultInteraction[] interactionTriggers;
 
-
+    [SerializeField]
+    [Tooltip("Conditions to be met before interaction can be triggered")]
+    InteractionCondition[] conditions;
     private void Start()
     {
         foreach (DefaultInteraction defaultInteraction in interactionTriggers)
@@ -25,6 +28,15 @@ public class DefaultInteraction : MonoBehaviour
             Debug.Log("Cannot interact with " + name);
             return;
         }
+        foreach (InteractionCondition condition in conditions)
+        {
+            Debug.Log("Checking condition");
+            if (!condition.IsMet(agent))
+            {
+                Debug.Log("Cannot interact with " + name);
+                return;
+            }
+        }
         Debug.Log("Interacting with " + name);
         if(callEvent)
         {
@@ -35,4 +47,44 @@ public class DefaultInteraction : MonoBehaviour
     //event to subscribe
     public delegate void InteractionEvent();
     public event InteractionEvent OnInteraction;
+}
+
+[System.Serializable]
+public class InteractionCondition
+{
+    [SerializeField]
+    InteractionType interactionType;
+
+    [SerializeField]
+    [Tooltip("Item to check for")]
+    Transform[] item;
+
+    public bool IsMet(Transform agent)
+    {
+        switch (interactionType)
+        {
+            case InteractionType.HaveItem:
+                return HaveItem(agent);
+        }
+        return true;
+    }
+
+    public bool HaveItem(Transform agent)
+    {
+        try
+        {
+            InteractionInput pickedItem = agent.GetComponentInChildren<InteractionInput>();
+            return item.Contains(pickedItem.pickedItem.transform);
+        }
+        catch
+        {
+            Debug.Log("No InteractionInput component found on " + agent.name);
+            return false;
+        }
+    }
+}
+
+public enum InteractionType
+{
+    HaveItem,
 }
