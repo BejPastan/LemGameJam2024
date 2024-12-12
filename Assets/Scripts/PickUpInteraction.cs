@@ -35,6 +35,7 @@ public class PickUpInteraction : DefaultInteraction
         Destroy(rb);
         transform.SetParent(newParent);
         transform.position = newParent.position;
+        transform.rotation = newParent.rotation;
         transform.SetParent(newParent);
     }
 
@@ -53,6 +54,7 @@ public class PickUpInteraction : DefaultInteraction
 
     public void Drop()
     {
+        Debug.DrawRay(transform.position, transform.forward * 10, Color.red, 5f);
         Drop(transform.forward, defaultForce);
     }
 }
