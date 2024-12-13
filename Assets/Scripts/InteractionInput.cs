@@ -48,14 +48,17 @@ public class InteractionInput : MonoBehaviour
 
     public void Interact()
     {
+        Debug.LogWarning("Interacting");
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red, 2f);
         if (Physics.Raycast(ray, out hit, interactionRange, layerMask))
         {
+            Debug.LogWarning("Hit " + hit.transform.name);
             DefaultInteraction interaction = hit.transform.GetComponent<DefaultInteraction>();
             if (interaction)
             {
+                Debug.LogWarning("Interacting with " + hit.transform.name);
                 interaction.Interact(transform);
                 if (hit.transform.GetComponent<PickUpInteraction>() != null && pickedItem == null)
                 {
