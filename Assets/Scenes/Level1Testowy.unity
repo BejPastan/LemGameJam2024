@@ -1603,7 +1603,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dropAudio
       value: 
-      objectReference: {fileID: 1720392535}
+      objectReference: {fileID: 1720392541}
     - target: {fileID: 3817780636772586747, guid: 09167f682fa65114991fb9aac8364e9e,
         type: 3}
       propertyPath: succesAudio
@@ -5633,13 +5633,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634571641}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.027090462, y: -0.17186096, z: 0.19352312, w: 0.9655458}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 6.825, y: -18.886, z: 21.531}
 --- !u!114 &634571644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15944,7 +15944,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d27c6640ae5428646befe2f2371bb8cf, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
