@@ -11,6 +11,8 @@ public class PickUpInteraction : DefaultInteraction
 
     Transform parent;
 
+    [SerializeField]
+    AudioSource dropAudio;
     public override void Interact(Transform agent, bool callEvent = true)
     {
         base.Interact(agent);
@@ -49,6 +51,10 @@ public class PickUpInteraction : DefaultInteraction
         rb.useGravity = true;
         rb.AddForce(direction * force, ForceMode.Impulse);
         transform.SetParent(null);
+        if(dropAudio != null)
+        {
+            dropAudio.Play();
+        }
     }
 
     public void Drop(Vector3 direction)
