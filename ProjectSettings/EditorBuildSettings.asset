@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/BejPastan.unity
     guid: 7924db8f9c305e64f88c95f3a6eae43e
   - enabled: 1
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LeveL2_Test.unity
     guid: a2e070a8f7d5e2e40b21398b00197296
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Level3_test.unity
     guid: d2c9b296ca5a9f04c9fce038f4fa115d
   m_configObjects: {}
