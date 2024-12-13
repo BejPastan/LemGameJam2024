@@ -45,6 +45,6 @@ public class PauseMenuToggle : MonoBehaviour
 
     public static void StartGame()
     {
-        SceneManager.LoadScene("Level1Testowy");
+        SceneManager.LoadScene("IntroScreen");
     }
 }
