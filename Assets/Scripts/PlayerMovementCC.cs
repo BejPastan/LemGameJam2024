@@ -10,6 +10,7 @@ public class PlayerMovementCC : MonoBehaviour
     float cameraX;
     float cameraY;
     float xRotation = 0f;
+    private float groundRaycastRange = 1.01f;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -24,6 +25,7 @@ public class PlayerMovementCC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        groundRaycastRange = transform.localScale.y + 0.02f;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         // Lock the cursor to the center of the screen and hide it
@@ -35,6 +37,7 @@ public class PlayerMovementCC : MonoBehaviour
     void Update()
     {
         MyInput();
+        SpeedControl();
     }
 
     private void FixedUpdate()
@@ -56,9 +59,19 @@ public class PlayerMovementCC : MonoBehaviour
     {
         // calculate movement direction
         moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-        moveDirection.y = 0.0f;
 
-        rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+        rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Impulse);
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+        if(flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
     }
 
     private void RotateCamera()
@@ -70,5 +83,10 @@ public class PlayerMovementCC : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -maxLookAngle, maxLookAngle);
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, groundRaycastRange);
     }
 }
