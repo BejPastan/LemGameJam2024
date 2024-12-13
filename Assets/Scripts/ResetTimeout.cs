@@ -49,9 +49,10 @@ public class ResetTimeout : MonoBehaviour
 // Function to handle timer timeout
     private void TimerTimeout()
     {
+        isTimerRunning = false;
         // Reset the timer and simulate scene reload
-        currentTime = countdownTime;
-        Debug.Log("Time is up! Restarting timer.");
+        currentTime = 0.0f;
+        Debug.Log("Time is up!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -77,5 +78,10 @@ public class ResetTimeout : MonoBehaviour
     public static void AddTime(float bonusTime = 10f)
     {
         currentTime += bonusTime;
+    }
+
+    private IEnumerator TimerCoroutine()
+    {
+        yield return null;
     }
 }
