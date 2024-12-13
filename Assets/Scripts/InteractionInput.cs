@@ -10,6 +10,8 @@ public class InteractionInput : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
     public KeyCode dropKey = KeyCode.Q;
 
+    public KeyCode pauseMenu = KeyCode.Escape;
+
     public float interactionRange = 5f;
 
     [Tooltip("Layer masks to interact with")]
@@ -43,6 +45,11 @@ public class InteractionInput : MonoBehaviour
         if (Input.GetKeyDown(dropKey))
         {
             Drop();
+        }
+
+        if(Input.GetKeyDown(pauseMenu))
+        {
+            PauseMenuToggle.TogglePauseMenu();
         }
     }
 

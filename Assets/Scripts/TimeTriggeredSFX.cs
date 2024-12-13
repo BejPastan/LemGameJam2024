@@ -27,7 +27,8 @@ public class TimeTriggeredSFX : MonoBehaviour
 
     private void Update()
     {
-        if(resetTimeout.countdownTime > playTime && !played)
+        playTime -= Time.deltaTime;
+        if(playTime <= 0.0f && !played)
         {
             PlaySFX();
         }
