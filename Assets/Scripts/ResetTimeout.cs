@@ -10,9 +10,13 @@ public class ResetTimeout : MonoBehaviour
     public static float currentTime{get; private set;}
     private Coroutine timerCoroutine;
     private bool isTimerRunning = false;
+    private int warningSecondPoint = 0;
+    public AudioClip warningSound;
 
     [Header("Timer Settings")]
     public float countdownTime = 60f; // Time in seconds
+    public Color defaultTextColor = Color.black; // Default text color
+    public Color warningTextColor = Color.red; // Warning text color for the last 10 seconds
 
     [Header("Blackout Effect Settings")]
     public CanvasGroup blackoutCanvasGroup; // Reference to a UI CanvasGroup for blackout effect
@@ -86,7 +90,29 @@ public class ResetTimeout : MonoBehaviour
     {
         if (timerText != null)
         {
+            int secondsRemaining = Mathf.CeilToInt(currentTime);
             timerText.text = currentTime.ToString("0.##");
+
+            if (secondsRemaining <= 10 && secondsRemaining > 0 && secondsRemaining != warningSecondPoint)
+            {
+                warningSecondPoint = secondsRemaining;
+                StartCoroutine(WarningEffect());
+            }
+        }
+    }
+
+    // Coroutine for warning effect
+    private IEnumerator WarningEffect()
+    {
+        if (timerText != null)
+        {
+            if(warningSound != null)
+            {
+                AudioSource.PlayClipAtPoint(warningSound, transform.position);
+            }
+            timerText.color = warningTextColor;
+            yield return new WaitForSeconds(0.2f);
+            timerText.color = defaultTextColor;
         }
     }
 
