@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class DefaultInteraction : MonoBehaviour
@@ -73,8 +70,7 @@ public class InteractionCondition
     {
         try
         {
-            InteractionInput pickedItem = agent.GetComponent<InteractionInput>();
-            return item.Contains(pickedItem.pickedItem.transform);
+            return item.Contains(InteractionInput.instance.pickedItem.transform);
         }
         catch
         {

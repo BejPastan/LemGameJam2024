@@ -16,8 +16,18 @@ public class InteractionInput : MonoBehaviour
     public string[] layerMasks;
     private int layerMask;
 
+    public static InteractionInput instance;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         pickedItem = GetComponent<PickUpInteraction>();
         layerMask = LayerMask.GetMask(layerMasks);
     }
@@ -25,12 +35,12 @@ public class InteractionInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(interactKey))
+        if (Input.GetKeyDown(interactKey))
         {
             Interact();
         }
 
-        if(Input.GetKeyDown(dropKey))
+        if (Input.GetKeyDown(dropKey))
         {
             pickedItem.Drop();
         }
@@ -47,11 +57,11 @@ public class InteractionInput : MonoBehaviour
             if (interaction)
             {
                 interaction.Interact(transform);
-                try
+                if (hit.transform.GetComponent<PickUpInteraction>() != null)
                 {
                     pickedItem = hit.transform.GetComponent<PickUpInteraction>();
                 }
-                catch
+                else
                 {
                     Debug.Log("No PickUpAction component found on " + hit.transform.name);
                 }
@@ -61,7 +71,7 @@ public class InteractionInput : MonoBehaviour
 
     public void Drop()
     {
-        if(pickedItem == null)
+        if (pickedItem == null)
         {
             return;
         }
