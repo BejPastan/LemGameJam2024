@@ -35,7 +35,8 @@ public class DefaultInteraction : MonoBehaviour
         if (!isInteractable)
         {
             Debug.Log("Cannot interact with " + name);
-            failAudio.Play();
+            if(failAudio != null && Random.Range(0f, 1f) <= audioChance)
+                failAudio.Play();
             throw new System.Exception("Cannot interact with " + name);
         }
         foreach (InteractionCondition condition in conditions)
