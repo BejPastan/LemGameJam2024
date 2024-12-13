@@ -12,8 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/BejPastan.unity
     guid: 7924db8f9c305e64f88c95f3a6eae43e
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: c33d568518be1ba48a4ce11385a431fb
+  - enabled: 1
     path: Assets/Scenes/Level1Testowy.unity
     guid: e8a6c9af62696c1439cbd046a64ac0da
+  - enabled: 1
+    path: Assets/Scenes/IntroScreen.unity
+    guid: 63ff9fd7933e2bc469b1388e2cb0d73c
   - enabled: 1
     path: Assets/Scenes/LeveL2_Test.unity
     guid: a2e070a8f7d5e2e40b21398b00197296
