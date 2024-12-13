@@ -6,7 +6,7 @@ public class DefaultInteraction : MonoBehaviour
     public bool isInteractable = true;
     [SerializeField]
     [Tooltip("These interaction can trigger this object interaction")]
-    DefaultInteraction[] interactionTriggers;
+    protected DefaultInteraction[] interactionTriggers;
 
     [SerializeField]
     [Tooltip("Conditions to be met before interaction can be triggered")]
