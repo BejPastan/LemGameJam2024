@@ -1603,7 +1603,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dropAudio
       value: 
-      objectReference: {fileID: 1720392535}
+      objectReference: {fileID: 1720392541}
     - target: {fileID: 3817780636772586747, guid: 09167f682fa65114991fb9aac8364e9e,
         type: 3}
       propertyPath: succesAudio
@@ -15944,7 +15944,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d27c6640ae5428646befe2f2371bb8cf, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
