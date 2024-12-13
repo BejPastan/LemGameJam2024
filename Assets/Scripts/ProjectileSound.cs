@@ -7,6 +7,7 @@ public class ProjectileSound : MonoBehaviour
 {
     [Header("Sound Settings")]
     private AudioSource audioSource;
+    public float volume = 1;
 
     void Awake()
     {
@@ -24,7 +25,7 @@ public class ProjectileSound : MonoBehaviour
         if (clip != null)
         {
             Debug.Log("Sound played.");
-            audioSource.PlayOneShot(clip);
+            AudioSource.PlayClipAtPoint(clip, transform.position, volume);
         }
     }
 }
