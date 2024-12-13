@@ -7,7 +7,7 @@ public class PickUpInteraction : DefaultInteraction
     [SerializeField]
     float defaultForce = 10f;
     Rigidbody rb;
-    Collider col;
+    //Collider col;
 
     Transform parent;
 
@@ -31,7 +31,7 @@ public class PickUpInteraction : DefaultInteraction
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
+        //col = GetComponent<Collider>();
     }
 
     public void PickUp(Transform newParent)
@@ -41,13 +41,13 @@ public class PickUpInteraction : DefaultInteraction
         transform.position = newParent.position;
         transform.rotation = newParent.rotation;
         transform.SetParent(newParent);
-        col.enabled = false;
+        //col.enabled = false;
     }
 
     public void Drop(Vector3 direction, float force)
     {
         rb = gameObject.AddComponent<Rigidbody>();
-        col.enabled = true;
+        //col.enabled = true;
         rb.useGravity = true;
         rb.AddForce(direction * force, ForceMode.Impulse);
         transform.SetParent(null);
