@@ -42,7 +42,7 @@ public class InteractionInput : MonoBehaviour
 
         if (Input.GetKeyDown(dropKey))
         {
-            pickedItem.Drop();
+            Drop();
         }
     }
 
@@ -59,13 +59,17 @@ public class InteractionInput : MonoBehaviour
             if (interaction)
             {
                 Debug.LogWarning("Interacting with " + hit.transform.name);
-                interaction.Interact(transform);
-                if (hit.transform.GetComponent<PickUpInteraction>() != null && pickedItem == null)
+                if (hit.transform.GetComponent<PickUpInteraction>() != null)
                 {
-                    pickedItem = hit.transform.GetComponent<PickUpInteraction>();
+                    if (pickedItem == null)
+                    {
+                        pickedItem = hit.transform.GetComponent<PickUpInteraction>();
+                        interaction.Interact(transform);
+                    }
                 }
                 else
                 {
+                    interaction.Interact(transform);
                     Debug.Log("No PickUpAction component found on " + hit.transform.name);
                 }
             }
