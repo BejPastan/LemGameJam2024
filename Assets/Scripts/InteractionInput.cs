@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class InteractionInput : MonoBehaviour
 {
-    PickUpInteraction pickedItem;
+    public PickUpInteraction pickedItem { get; private set; }
 
     public KeyCode interactKey = KeyCode.E;
     public KeyCode dropKey = KeyCode.Q;
@@ -16,8 +16,18 @@ public class InteractionInput : MonoBehaviour
     public string[] layerMasks;
     private int layerMask;
 
+    public static InteractionInput instance;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         pickedItem = GetComponent<PickUpInteraction>();
         layerMask = LayerMask.GetMask(layerMasks);
     }
@@ -25,12 +35,12 @@ public class InteractionInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(interactKey))
+        if (Input.GetKeyDown(interactKey))
         {
             Interact();
         }
 
-        if(Input.GetKeyDown(dropKey))
+        if (Input.GetKeyDown(dropKey))
         {
             pickedItem.Drop();
         }
@@ -38,21 +48,23 @@ public class InteractionInput : MonoBehaviour
 
     public void Interact()
     {
-        Debug.Log(Camera.main);
+        Debug.LogWarning("Interacting");
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red, 2f);
         if (Physics.Raycast(ray, out hit, interactionRange, layerMask))
         {
+            Debug.LogWarning("Hit " + hit.transform.name);
             DefaultInteraction interaction = hit.transform.GetComponent<DefaultInteraction>();
             if (interaction)
             {
+                Debug.LogWarning("Interacting with " + hit.transform.name);
                 interaction.Interact(transform);
-                try
+                if (hit.transform.GetComponent<PickUpInteraction>() != null && pickedItem == null)
                 {
                     pickedItem = hit.transform.GetComponent<PickUpInteraction>();
                 }
-                catch
+                else
                 {
                     Debug.Log("No PickUpAction component found on " + hit.transform.name);
                 }
@@ -62,6 +74,10 @@ public class InteractionInput : MonoBehaviour
 
     public void Drop()
     {
+        if (pickedItem == null)
+        {
+            return;
+        }
         pickedItem.Drop();
         pickedItem = null;
     }

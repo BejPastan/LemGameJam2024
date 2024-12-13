@@ -18,6 +18,10 @@ public class PinPad : DefaultInteraction
     public bool PinPressed(Transform caller)
     {
         Debug.Log(caller);
+        if(index == 0)
+        {
+            ResetPin();
+        }
         if (caller.GetComponent<DefaultInteraction>() == buttonsTriggers[index])
         {
             index++;
@@ -31,8 +35,22 @@ public class PinPad : DefaultInteraction
         else
         {
             Debug.Log("Wrong pin");
-            index = 0;
+            ResetPin();
             return false;
+        }
+    }
+
+    public void ResetPin()
+    {
+        index = 0;
+        foreach (DefaultInteraction button in interactionTriggers)
+        {
+            Debug.LogWarning(button.GetType());
+            //This is to filter the buttons
+            if (button.GetType() == typeof(PinButton))
+            {
+                ((PinButton)button).ResetButton();
+            }
         }
     }
 }

@@ -12,9 +12,8 @@ public class ResetTimeout : MonoBehaviour
     [Header("Timer Settings")]
     public float countdownTime = 60f; // Time in seconds
 
-    public float currentTime{get; private set;}
+    public static float currentTime{get; private set;}
     private bool isTimerRunning = true;
-
 
     void Start()
     {
@@ -75,7 +74,7 @@ public class ResetTimeout : MonoBehaviour
         Debug.Log("Timer restarted.");
     }
 
-    public void AddTime(float bonusTime = 10f)
+    public static void AddTime(float bonusTime = 10f)
     {
         currentTime += bonusTime;
     }
