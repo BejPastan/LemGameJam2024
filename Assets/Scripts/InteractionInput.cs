@@ -57,7 +57,7 @@ public class InteractionInput : MonoBehaviour
             if (interaction)
             {
                 interaction.Interact(transform);
-                if (hit.transform.GetComponent<PickUpInteraction>() != null)
+                if (hit.transform.GetComponent<PickUpInteraction>() != null && pickedItem == null)
                 {
                     pickedItem = hit.transform.GetComponent<PickUpInteraction>();
                 }
