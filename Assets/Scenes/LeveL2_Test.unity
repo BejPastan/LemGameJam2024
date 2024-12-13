@@ -8348,6 +8348,36 @@ PrefabInstance:
       propertyPath: defaultForce
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5160502222779860367, guid: 09167f682fa65114991fb9aac8364e9e,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.6073136
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160502222779860367, guid: 09167f682fa65114991fb9aac8364e9e,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.8324456
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160502222779860367, guid: 09167f682fa65114991fb9aac8364e9e,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 3.8517177
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160502222779860367, guid: 09167f682fa65114991fb9aac8364e9e,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 1.3036577
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160502222779860367, guid: 09167f682fa65114991fb9aac8364e9e,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.026358157
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160502222779860367, guid: 09167f682fa65114991fb9aac8364e9e,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.059510745
+      objectReference: {fileID: 0}
     - target: {fileID: 6522919146370422079, guid: 09167f682fa65114991fb9aac8364e9e,
         type: 3}
       propertyPath: m_Mesh
