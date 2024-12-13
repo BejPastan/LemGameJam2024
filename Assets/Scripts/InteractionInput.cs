@@ -54,6 +54,10 @@ public class InteractionInput : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red, 2f);
         if (Physics.Raycast(ray, out hit, interactionRange, layerMask))
         {
+            if(hit.transform.gameObject.layer != LayerMask.NameToLayer("Interactable"))
+            {
+                return;
+            }
             Debug.LogWarning("Hit " + hit.transform.name);
             DefaultInteraction interaction = hit.transform.GetComponent<DefaultInteraction>();
             if (interaction)
