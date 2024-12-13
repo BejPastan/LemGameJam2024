@@ -29,12 +29,10 @@ public class OpeningDoors : DefaultInteraction
     IEnumerator OpenDoor()
     {
         isOpening = true;
-        float currentAngle = transform.localEulerAngles.y;
         float targetAngle = openAngle;
         Debug.Log("Target open angle: " + targetAngle);
-        while (currentAngle < targetAngle)
+        while (angleChange < targetAngle)
         {
-            currentAngle += openSpeed * Time.deltaTime;
             angleChange += openSpeed * Time.deltaTime;
             transform.Rotate(0, openSpeed * Time.deltaTime, 0);
             yield return null;
@@ -53,7 +51,7 @@ public class OpeningDoors : DefaultInteraction
         Debug.Log("Target close angle: " + targetAngle);
         while (currentAngle > targetAngle)
         {
-            currentAngle -= openSpeed*Time.deltaTime;
+            currentAngle -= openSpeed * Time.deltaTime;
             angleChange -= openSpeed * Time.deltaTime;
             transform.Rotate(0, -openSpeed * Time.deltaTime, 0);
             yield return null;
