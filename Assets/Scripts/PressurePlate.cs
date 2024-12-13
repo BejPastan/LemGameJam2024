@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PressurePlate : DefaultInteraction
@@ -14,10 +15,12 @@ public class PressurePlate : DefaultInteraction
 
     [Header("Button States")]
     public bool is_one_shot = false;
-    public bool is_triggereed{get; private set;}
+    public bool is_triggered{get; private set;}
+    public int numberOfObjects = 0;
 
     [Header("Color Settings")]
     public Color triggeredColor = Color.red;  // Color to change to when triggered
+    public Color triggeredColorOneShot = Color.green;  // Color to change to when triggered
     public Color defaultColor = Color.black; // Default color
 
 
@@ -31,31 +34,37 @@ public class PressurePlate : DefaultInteraction
         plateButtonRenderer.material.color = defaultColor;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("Interactable"))
         {
-            is_triggereed = true;
-            plateButtonTransform.Translate(new Vector3(0.0f, -0.08f, 0.0f));
-            plateButtonRenderer.material.color = triggeredColor;
-            Interact(transform);
+            numberOfObjects += 1;
+            if (is_triggered == false)
+            {
+                is_triggered = true;
+                plateButtonTransform.Translate(new Vector3(0.0f, -0.08f, 0.0f));
+                if (is_one_shot) plateButtonRenderer.material.color = triggeredColorOneShot;
+                else plateButtonRenderer.material.color = triggeredColor;
+                Interact(transform);
+            }
+            
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && is_one_shot == false)
+        if (other.CompareTag("Player") || other.gameObject.layer == LayerMask.NameToLayer("Interactable"))
         {
-            is_triggereed = false;
-            plateButtonTransform.Translate(new Vector3(0.0f, 0.08f, 0.0f));
-            plateButtonRenderer.material.color = defaultColor;
-            Interact(transform);
+            numberOfObjects -= 1;
+            if (is_triggered == true && is_one_shot == false && numberOfObjects <= 0)
+            {
+                is_triggered = false;
+                numberOfObjects = 0;
+                plateButtonTransform.Translate(new Vector3(0.0f, 0.08f, 0.0f));
+                plateButtonRenderer.material.color = defaultColor;
+                Interact(transform);
+            }
+            
         }
     }
 }
