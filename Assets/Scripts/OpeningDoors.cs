@@ -27,8 +27,8 @@ public class OpeningDoors : DefaultInteraction
         float targetAngle = currentAngle + openAngle;
         while (currentAngle < targetAngle)
         {
-            currentAngle += openSpeed;
-            transform.localEulerAngles = new Vector3(0, currentAngle, 0);
+            currentAngle += openSpeed * Time.deltaTime;
+            transform.Rotate(0, openSpeed * Time.deltaTime, 0);
             yield return null;
         }
         isOpen = true;
@@ -40,8 +40,8 @@ public class OpeningDoors : DefaultInteraction
         float targetAngle = currentAngle - openAngle;
         while (currentAngle > targetAngle)
         {
-            currentAngle -= openSpeed;
-            transform.localEulerAngles = new Vector3(0, currentAngle, 0);
+            currentAngle -= openSpeed*Time.deltaTime;
+            transform.Rotate(0, -openSpeed * Time.deltaTime, 0);
             yield return null;
         }
         isOpen = false;
