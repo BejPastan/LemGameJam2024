@@ -24,7 +24,6 @@ public class ProjectileSound : MonoBehaviour
     {
         if (clip != null)
         {
-            Debug.Log("Sound played.");
             AudioSource.PlayClipAtPoint(clip, transform.position, volume);
         }
     }
