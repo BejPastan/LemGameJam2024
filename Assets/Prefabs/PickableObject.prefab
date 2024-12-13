@@ -148,4 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInteractable: 1
   interactionTriggers: []
-  defaultForce: 10
+  defaultForce: 2
