@@ -7,17 +7,21 @@ public class DefaultInteraction : MonoBehaviour
     public bool isInteractable = true;
     [SerializeField]
     [Tooltip("These interaction can trigger this object interaction")]
-    DefaultInteraction[] interactionTriggers;
+    protected DefaultInteraction[] interactionTriggers;
 
     [SerializeField]
     [Tooltip("Conditions to be met before interaction can be triggered")]
     InteractionCondition[] conditions;
 
-    [Header("AudioFiles")]
+    [Header("Audio settings")]
     [SerializeField]
     AudioSource succesAudio;
     [SerializeField]
     AudioSource failAudio;
+
+    [SerializeField]
+    float audioChance = 1f;
+
     private void Start()
     {
         foreach (DefaultInteraction defaultInteraction in interactionTriggers)
@@ -31,7 +35,8 @@ public class DefaultInteraction : MonoBehaviour
         if (!isInteractable)
         {
             Debug.Log("Cannot interact with " + name);
-            failAudio.Play();
+            if(failAudio != null && Random.Range(0f, 1f) <= audioChance)
+                failAudio.Play();
             throw new System.Exception("Cannot interact with " + name);
         }
         foreach (InteractionCondition condition in conditions)
@@ -39,7 +44,7 @@ public class DefaultInteraction : MonoBehaviour
             Debug.Log("Checking condition");
             if (!condition.IsMet(agent))
             {
-                if(failAudio != null)
+                if(failAudio != null && Random.Range(0f,1f) <= audioChance)
                     failAudio.Play();
                 throw new System.Exception("Condition not met");
             }
@@ -48,7 +53,7 @@ public class DefaultInteraction : MonoBehaviour
         if(callEvent)
         {
             OnInteraction?.Invoke();
-            if(succesAudio != null)
+            if(succesAudio != null && Random.Range(0f, 1f) <= audioChance)
                 succesAudio.Play();
         }
     }

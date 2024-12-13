@@ -7,36 +7,79 @@ using TMPro;
 public class ResetTimeout : MonoBehaviour
 {
     public TMP_Text timerText; // Reference to the UI Text object
-
+    public static float currentTime{get; private set;}
+    private Coroutine timerCoroutine;
+    private bool isTimerRunning = false;
 
     [Header("Timer Settings")]
     public float countdownTime = 60f; // Time in seconds
 
-    public float currentTime{get; private set;}
-    private bool isTimerRunning = true;
+    [Header("Blackout Effect Settings")]
+    public CanvasGroup blackoutCanvasGroup; // Reference to a UI CanvasGroup for blackout effect
+    public float blackoutDuration = 0.2f; // Blackout duration
 
+    
 
     void Start()
     {
         // Initialize the timer
         currentTime = countdownTime;
         UpdateTimerText();
+        // Ensure the blackout starts transparent
+        if (blackoutCanvasGroup != null)
+        {
+            blackoutCanvasGroup.alpha = 0f;
+        }
+
+        // Start the timer coroutine when the scene loads
+        Invoke(nameof(StartTimer), 0.1f);
     }
 
-    void Update()
+    private IEnumerator TimerCoroutine()
     {
-        UpdateTimerText();
-        // Check if the timer is running
-        if (isTimerRunning)
+        isTimerRunning = true;
+        while (currentTime > 0.0f)
         {
             currentTime -= Time.deltaTime;
-
-            // Check if time has run out
-            if (currentTime <= 0f)
-            {
-                TimerTimeout();
-            }
+            UpdateTimerText();
+            yield return null; // Wait for the next frame
         }
+
+        yield return TimerTimeout();
+    }
+
+    // Function to handle timer timeout
+    private IEnumerator TimerTimeout()
+    {
+        isTimerRunning = false; // Ensure the timer is stopped
+        currentTime = 0.0f;
+        UpdateTimerText();
+
+        // Trigger the blackout effect
+        if (blackoutCanvasGroup != null)
+        {
+            Debug.Log("Timer timeout! Starting blackout...");
+            yield return StartCoroutine(BlackoutEffect());
+        }
+
+        // Reset the scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // Coroutine for a smooth blackout effect
+    private IEnumerator BlackoutEffect()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < blackoutDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Clamp01(elapsedTime / blackoutDuration);
+            blackoutCanvasGroup.alpha = alpha;
+            yield return null;
+        }
+
+        blackoutCanvasGroup.alpha = 1f; // Ensure fully black
     }
 
     private void UpdateTimerText()
@@ -47,26 +90,25 @@ public class ResetTimeout : MonoBehaviour
         }
     }
 
-// Function to handle timer timeout
-    private void TimerTimeout()
+    // Function to start the timer
+    public void StartTimer()
     {
-        // Reset the timer and simulate scene reload
-        currentTime = countdownTime;
-        Debug.Log("Time is up! Restarting timer.");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Starting timer.");
+        if (!isTimerRunning)
+        {
+            timerCoroutine = StartCoroutine(TimerCoroutine());
+        }
     }
 
     // Function to interrupt the timer (e.g., upon meeting win conditions)
-    public void InterruptTimer()
+    public void StopTimer()
     {
-        isTimerRunning = false;
-        Debug.Log("Timer interrupted.");
-    }
-
-    public void ContinueTimer()
-    {
-        isTimerRunning = true;
-        Debug.Log("Timer starts again.");
+        if (isTimerRunning)
+        {
+            StopCoroutine(timerCoroutine);
+            isTimerRunning = false;
+            Debug.Log("Timer interrupted.");
+        }
     }
 
     public void RestartTimer()
@@ -75,7 +117,7 @@ public class ResetTimeout : MonoBehaviour
         Debug.Log("Timer restarted.");
     }
 
-    public void AddTime(float bonusTime = 10f)
+    public static void AddTime(float bonusTime = 10f)
     {
         currentTime += bonusTime;
     }

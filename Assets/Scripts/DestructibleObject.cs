@@ -8,6 +8,7 @@ public class DestructibleObject : DefaultInteraction
     public override void Interact(Transform agent, bool callEvent = true)
     {
         base.Interact(agent, callEvent);
+        DestroyWeb();
     }
 
     private void OnTriggerEnter(Collider other)

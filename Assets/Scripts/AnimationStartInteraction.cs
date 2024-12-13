@@ -16,7 +16,7 @@ public class AnimationStartInteraction : DefaultInteraction
         Debug.Log("Animation started");
     }
 
-    private void StartAnimation()
+    public void StartAnimation()
     {
         foreach (AnimatorVariable variable in animatorVariables)
         {
