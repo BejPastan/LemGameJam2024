@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
+
 public class DefaultInteraction : MonoBehaviour
 {
     public bool isInteractable = true;
@@ -38,7 +39,8 @@ public class DefaultInteraction : MonoBehaviour
             Debug.Log("Checking condition");
             if (!condition.IsMet(agent))
             {
-                failAudio.Play();
+                if(failAudio != null)
+                    failAudio.Play();
                 throw new System.Exception("Condition not met");
             }
         }
@@ -46,7 +48,8 @@ public class DefaultInteraction : MonoBehaviour
         if(callEvent)
         {
             OnInteraction?.Invoke();
-            succesAudio.Play();
+            if(succesAudio != null)
+                succesAudio.Play();
         }
     }
 
