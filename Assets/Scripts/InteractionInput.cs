@@ -42,7 +42,7 @@ public class InteractionInput : MonoBehaviour
 
         if (Input.GetKeyDown(dropKey))
         {
-            pickedItem.Drop();
+            Drop();
         }
     }
 
@@ -54,18 +54,26 @@ public class InteractionInput : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * interactionRange, Color.red, 2f);
         if (Physics.Raycast(ray, out hit, interactionRange, layerMask))
         {
+            if(hit.transform.gameObject.layer != LayerMask.NameToLayer("Interactable"))
+            {
+                return;
+            }
             Debug.LogWarning("Hit " + hit.transform.name);
             DefaultInteraction interaction = hit.transform.GetComponent<DefaultInteraction>();
             if (interaction)
             {
                 Debug.LogWarning("Interacting with " + hit.transform.name);
-                interaction.Interact(transform);
-                if (hit.transform.GetComponent<PickUpInteraction>() != null && pickedItem == null)
+                if (hit.transform.GetComponent<PickUpInteraction>() != null)
                 {
-                    pickedItem = hit.transform.GetComponent<PickUpInteraction>();
+                    if (pickedItem == null)
+                    {
+                        pickedItem = hit.transform.GetComponent<PickUpInteraction>();
+                        interaction.Interact(transform);
+                    }
                 }
                 else
                 {
+                    interaction.Interact(transform);
                     Debug.Log("No PickUpAction component found on " + hit.transform.name);
                 }
             }

@@ -49,6 +49,9 @@ MonoBehaviour:
   isInteractable: 1
   interactionTriggers:
   - {fileID: 0}
+  conditions: []
+  succesAudio: {fileID: 0}
+  failAudio: {fileID: 0}
   isOpen: 0
   openAngle: 90
   openSpeed: 2

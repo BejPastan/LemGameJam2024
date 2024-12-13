@@ -7,9 +7,12 @@ public class PickUpInteraction : DefaultInteraction
     [SerializeField]
     float defaultForce = 10f;
     Rigidbody rb;
+    Collider col;
 
     Transform parent;
 
+    [SerializeField]
+    AudioSource dropAudio;
     public override void Interact(Transform agent, bool callEvent = true)
     {
         base.Interact(agent);
@@ -28,6 +31,7 @@ public class PickUpInteraction : DefaultInteraction
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
     }
 
     public void PickUp(Transform newParent)
@@ -37,14 +41,20 @@ public class PickUpInteraction : DefaultInteraction
         transform.position = newParent.position;
         transform.rotation = newParent.rotation;
         transform.SetParent(newParent);
+        col.enabled = false;
     }
 
     public void Drop(Vector3 direction, float force)
     {
         rb = gameObject.AddComponent<Rigidbody>();
+        col.enabled = true;
         rb.useGravity = true;
         rb.AddForce(direction * force, ForceMode.Impulse);
         transform.SetParent(null);
+        if(dropAudio != null)
+        {
+            dropAudio.Play();
+        }
     }
 
     public void Drop(Vector3 direction)
