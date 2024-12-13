@@ -2021,7 +2021,22 @@ PrefabInstance:
     - target: {fileID: 2216560062901133219, guid: d2d9d31db08472740b4f7298d2f6aa41,
         type: 3}
       propertyPath: m_Drag
-      value: 5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2216560062901133219, guid: d2d9d31db08472740b4f7298d2f6aa41,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2216560062901133219, guid: d2d9d31db08472740b4f7298d2f6aa41,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2216560062901133219, guid: d2d9d31db08472740b4f7298d2f6aa41,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4418724570853895037, guid: d2d9d31db08472740b4f7298d2f6aa41,
         type: 3}
@@ -2077,6 +2092,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerCC
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758450011962119053, guid: d2d9d31db08472740b4f7298d2f6aa41,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758450011962119053, guid: d2d9d31db08472740b4f7298d2f6aa41,
+        type: 3}
+      propertyPath: groundDrag
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2199,7 +2224,7 @@ PrefabInstance:
     - target: {fileID: 8481453174694215044, guid: 3263a41f32667b9469d30cf2dd9af6d6,
         type: 3}
       propertyPath: countdownTime
-      value: 60
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
