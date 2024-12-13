@@ -7,6 +7,8 @@ public class InteractionInput : MonoBehaviour
 {
     public PickUpInteraction pickedItem { get; private set; }
 
+    public Transform hand;
+
     public KeyCode interactKey = KeyCode.E;
     public KeyCode dropKey = KeyCode.Q;
 
@@ -76,6 +78,7 @@ public class InteractionInput : MonoBehaviour
                     {
                         pickedItem = hit.transform.GetComponent<PickUpInteraction>();
                         interaction.Interact(transform);
+                        hand.gameObject.SetActive(false);
                     }
                 }
                 else
@@ -95,5 +98,6 @@ public class InteractionInput : MonoBehaviour
         }
         pickedItem.Drop();
         pickedItem = null;
+        hand.gameObject.SetActive(true);
     }
 }

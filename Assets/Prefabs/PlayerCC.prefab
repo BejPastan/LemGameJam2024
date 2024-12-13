@@ -494,6 +494,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractionsPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 2635300378599177166, guid: 4ca93e3ab7f8ee047b3eaba0227115f0,
+        type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 7222431015245921963}
     - target: {fileID: 2974813647058490768, guid: 4ca93e3ab7f8ee047b3eaba0227115f0,
         type: 3}
       propertyPath: m_LocalPosition.x
