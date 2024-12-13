@@ -19,11 +19,17 @@ public class PauseMenuToggle : MonoBehaviour
         {
             isPaused = false;
             pauseMenu.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1.0f;
         }
         else
         {
             isPaused = true;
             pauseMenu.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0.0f;
         }
     }
 
